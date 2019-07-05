@@ -6,7 +6,7 @@ use yii\base\Widget;
 
 class MyWidget extends Widget
 {
-    public $label = "Жми сюда";
+    public $label = "Нажми нежно";
 
     public function run()
     {

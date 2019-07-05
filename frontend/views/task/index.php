@@ -1,6 +1,6 @@
 <?php
+\frontend\assets\TaskAsset::register($this);
 /** @var \yii\data\ActiveDataProvider $dataProvider */
-
 echo \yii\widgets\ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => function($model){
@@ -11,5 +11,4 @@ echo \yii\widgets\ListView::widget([
         'class' => 'preview-container'
     ]
 ])
-
 ?>

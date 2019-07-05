@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -205,5 +206,15 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public static function getUsersList()
+    {
+        $users = static::find()
+            ->select(['id', 'username'])
+            ->asArray()
+            ->all();
+
+        return ArrayHelper::map($users, 'id', 'username');
     }
 }

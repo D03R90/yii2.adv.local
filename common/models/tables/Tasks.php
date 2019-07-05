@@ -2,6 +2,7 @@
 
 namespace common\models\tables;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -58,6 +59,15 @@ class Tasks extends \yii\db\ActiveRecord
             'status_id' => 'Status ID',
         ];
     }
+
+    public static function findDeadline()
+    {
+        static::find()
+        ->where("DATEDIFF(NOW(), tasks.deadline) <= 1")
+        ->with('responsible')
+        ->all();
+    }
+
 /*
     public function getStatus()
     {
@@ -73,7 +83,7 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'responsible_id']);
     }
-/*
+
     public function getTaskComments()
     {
         return $this->hasMany(TaskComments::class, ['task_id' => 'id']);
@@ -83,5 +93,4 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TaskAttachments::class, ['task_id' => 'id']);
     }
-*/
 }

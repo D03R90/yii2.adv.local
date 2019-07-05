@@ -3,6 +3,9 @@ use \yii\widgets\ActiveForm;
 use \yii\helpers\Url;
 use \yii\helpers\Html;
 
+/** @var  $taskCommentForm */
+/** @var \app\models\forms\TaskAttachmentsAddForm $taskAttachmentForm */
+\frontend\assets\TaskAsset::register($this);
 ?>
 <div class="task-edit">
     <div class="task-main">
@@ -12,6 +15,7 @@ use \yii\helpers\Html;
             <div class="col-lg-4">
                 <?=$form->field($model, 'status_id')
                     ->dropDownList($statusesList)
+
                 ?>
             </div>
             <div class="col-lg-4">
@@ -32,9 +36,9 @@ use \yii\helpers\Html;
         </div>
         <?=Html::submitButton("Сохранить",['class' => 'btn btn-success']);?>
         <?ActiveForm::end()?>
-    </div>
-</div>
 
+   </div>
+</div>
 <div class="attachments">
     <h3>Вложения</h3>
     <?php $form = ActiveForm::begin([
@@ -54,12 +58,36 @@ use \yii\helpers\Html;
         <?php endforeach;?>
     </div>
     <h3>Комментарии</h3>
-    <?php $form = ActiveForm::begin(['action' => Url::to(['task/add-comment'])]);?>
+    <?php
+    $form = ActiveForm::begin(['action' => Url::to(['task/add-comment'])]);?>
     <?=$form->field($taskCommentForm, 'user_id')->hiddenInput(['value' => $userId])->label(false);?>
     <?=$form->field($taskCommentForm, 'task_id')->hiddenInput(['value' => $model->id])->label(false);?>
     <?=$form->field($taskCommentForm, 'content')->textInput();?>
     <?=Html::submitButton("Добавить",['class' => 'btn btn-default']);?>
     <?ActiveForm::end()?>
     <hr>
+    <div class="comment-history">
+        <?foreach ($model->taskComments as $comment): ?>
+            <p><strong><?=$comment->user->username?></strong>: <?=$comment->content?></p>
+        <?php endforeach;?>
+    </div>
 
+    <hr>
+
+    <div class="task-chat">
+        <form action="#" name="chat_form" id="chat_form">
+            <label>
+                <input type="hidden" name="channel" value="<?=$channel?>"/>
+                <input type="hidden" name="user_id" value="<?=$userId?>"/>
+                введите сообщение
+                <input type="text" name="message"/>
+                <input type="submit"/>
+            </label>
+        </form>
+        <hr>
+        <div id="root_chat"></div>
+    </div>
 </div>
+<script>
+    var channel = '<?=$channel?>';
+</script>

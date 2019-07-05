@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\widgets;
+namespace frontend\widgets;
 
 
 use common\models\tables\Tasks;
@@ -20,6 +20,6 @@ class TaskPreview extends Widget
                 'linked' => $this->linked
             ]);
         }
-        throw new \Exception("Ошибка");
+       throw new \Exception("Модель должна быть класса таск!");
     }
 }
