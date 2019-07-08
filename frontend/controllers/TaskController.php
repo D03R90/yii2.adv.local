@@ -56,11 +56,16 @@ class TaskController extends Controller
     {
         $model = new TaskComments();
         if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-            \Yii::$app->session->setFlash('success', "Комментарий добавлен");
-        } else {
-            \Yii::$app->session->setFlash('error', "Не удалось добавить комментарий");
+            //  \Yii::$app->session->setFlash('success', "Комментарий добавлен");
+            $id = $model->task_id;
+            return $this->renderAjax('_comments',
+                [
+                    'model' => Tasks::findOne($id),
+                    'taskCommentForm' => new TaskComments(),
+                    'userId' => \Yii::$app->user->id,
+                ]);
         }
-        $this->redirect(\Yii::$app->request->referrer);
+        //  $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionAddAttachment()
