@@ -12,6 +12,10 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+//        'bot' => [
+//            'class' => \SonkoDmitry\Yii\TelegramBot\Component::class,
+//            'apiToken' => '888388881:AAECdKfPj1d6Eu2-D0btTfEPMp0v4zu_6IU',
+//        ],
         'view' => [
             'theme' => [
                 'basePath' => '@app/themes/test',
