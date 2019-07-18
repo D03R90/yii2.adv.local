@@ -8,6 +8,7 @@ use common\models\tables\Message;
 use common\models\User;
 use yii\data\ActiveDataProvider;
 use yii\filters\auth\HttpBasicAuth;
+use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
 
@@ -20,14 +21,15 @@ class MessageController extends ActiveController
         $behavers = parent::behaviors();
         $behavers['authentificator'] = [
 
-          'class' => HttpBasicAuth::class,
-          'auth' => function($username, $password){
-            $user = User::findByUsername($username);
-            if($user !== null && $user->validatePassword($password)){
-                return $user;
-            }
-            return null;
-          }
+            /*    'class' => HttpBearerAuth::class
+            'class' => HttpBasicAuth::class,
+             'auth' => function($username, $password){
+               $user = User::findByUsername($username);
+               if($user !== null && $user->validatePassword($password)){
+                   return $user;
+               }
+               return null;
+             } */
         ];
         return $behavers;
     }
